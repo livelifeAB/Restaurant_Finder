@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -68,5 +69,13 @@ class RestaurantTest {
         restaurant.addToMenu("Vegetable lasagne", 269);
         assertThrows(itemNotFoundException.class,
                 ()->restaurant.removeFromMenu("French fries"));
+    }
+    @Test
+    public void adding_item_will_show_the_total_price() {
+
+        restaurant.addToMenu("Sweet corn soup",20);
+        restaurant.addToMenu("Vegetable lasagne", 30);
+        List itemList = restaurant.getMenu();
+        assertEquals(50,restaurant.calculateTotalPrice(itemList));
     }
 }
